@@ -29,3 +29,5 @@ jobs:
       - name: Run CI tests
         run: pytest -v -m "not integration"
 
+      - name: Build Docker image
+        run: docker build -t vllm-platform:ci .
