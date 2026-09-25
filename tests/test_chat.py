@@ -1,8 +1,10 @@
+import pytest
 import requests
 
-from conftest import VLLM_BASE_URL
+from conftest import REQUEST_TIMEOUT, VLLM_BASE_URL
 
 
+@pytest.mark.integration
 def test_chat_completion():
     payload = {
         "model": "Qwen/Qwen2.5-1.5B-Instruct-AWQ",
@@ -19,7 +21,7 @@ def test_chat_completion():
     response = requests.post(
         f"{VLLM_BASE_URL}/v1/chat/completions",
         json=payload,
-        timeout=60,
+        timeout=REQUEST_TIMEOUT,
     )
 
     assert response.status_code == 200
@@ -29,4 +31,3 @@ def test_chat_completion():
     assert "choices" in data
     assert len(data["choices"]) > 0
     assert data["choices"][0]["message"]["content"]
-

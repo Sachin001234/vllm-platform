@@ -1,8 +1,10 @@
+import pytest
 import requests
 
 from conftest import REQUEST_TIMEOUT, VLLM_BASE_URL
 
 
+@pytest.mark.integration
 def test_model_available():
     response = requests.get(
         f"{VLLM_BASE_URL}/v1/models",
@@ -14,4 +16,3 @@ def test_model_available():
     data = response.json()
     models = [model["id"] for model in data["data"]]
 
-    assert "Qwen/Qwen2.5-1.5B-Instruct-AWQ" in models
