@@ -1,8 +1,10 @@
 import requests
 
+from conftest import VLLM_BASE_URL
+
 
 def test_model_available():
-    response = requests.get("http://localhost:8000/v1/models")
+    response = requests.get(f"{VLLM_BASE_URL}/v1/models")
 
     assert response.status_code == 200
 
