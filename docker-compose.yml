@@ -1,0 +1,25 @@
+services:
+  vllm:
+    image: vllm-platform:0.1
+    container_name: vllm-server
+
+    runtime: nvidia
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+
+    ipc: host
+
+    command:
+      - --model
+      - Qwen/Qwen2.5-1.5B-Instruct-AWQ
+      - --quantization
+      - awq
+      - --gpu-memory-utilization
+      - "0.75"
+      - --max-model-len
+      - "512"
+      - --enforce-eager
